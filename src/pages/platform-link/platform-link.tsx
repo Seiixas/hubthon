@@ -19,6 +19,7 @@ import {
 import { StyledPlatformWrapper } from "./platform-link.styles";
 import { ChangeEvent, MouseEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { MyStep } from "../../components/Stepper";
 
 const locationsMocked = [
   {
@@ -49,6 +50,7 @@ export function PlatformLink() {
   const [open, setOpen] = useState(false);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [locationsData, setLocationsData] = useState(locationsMocked);
 
   const navigate = useNavigate();
 
@@ -74,20 +76,26 @@ export function PlatformLink() {
     setOpen(false);
   };
 
-  function handleButton(type: string) {
+  const handleConnect = (index: string) => {
+    setLocationsData(prev => prev.map(location => location.id === index 
+      ? { ...location, type: 'success' }
+      : location ));
+  }
+
+  function handleButton(type: string, index: string) {
     if (type === "primary") {
-      return <Button variant="contained">Conectar</Button>;
+      return <Button variant="contained" onClick={() => handleConnect(index)}>Conectar</Button>;
     }
     if (type === "error") {
       return (
-        <Button  variant="contained" color="error">
+        <Button  variant="contained" color="error" onClick={() => handleConnect(index)}>
           Verificar
         </Button>
       );
     }
     if (type === "success") {
       return (
-        <Button variant="contained" color="success" style={{ cursor: 'default' }} disabled>
+        <Button variant="contained" color="success" style={{ cursor: 'default' }} disabled onClick={() => handleConnect(index)}>
           Conectado
         </Button>
       );
@@ -96,6 +104,7 @@ export function PlatformLink() {
 
   return (
     <StyledPlatformWrapper>
+      <MyStep step={2} />
       <section>
         <Box
           sx={{
@@ -149,7 +158,7 @@ export function PlatformLink() {
               bgcolor: "background.paper",
             }}
           >
-            {locationsMocked.map((location) => (
+            {locationsData.map((location) => (
               <ListItem
                 sx={{
                   display: "grid",
@@ -169,7 +178,7 @@ export function PlatformLink() {
                   secondary={location.address}
                 />
 
-                {handleButton(location.type)}
+                {handleButton(location.type, location.id)}
               </ListItem>
             ))}
           </List>
@@ -210,7 +219,7 @@ export function PlatformLink() {
           variant="contained"
           sx={{ width: '250px'}}
           onClick={() => {
-            navigate("/verify-locations");
+            navigate("/finish");
           }}
         >
           Ver Locais Vinculados

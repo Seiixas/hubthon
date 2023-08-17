@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Box, Button, TextField } from "@mui/material";
 import { useState } from "react";
 import { isEmpty } from "ramda";
+import { MyStep } from "../../components/Stepper";
 
 export function CreateCompany() {
   const navigate = useNavigate();
@@ -12,6 +13,7 @@ export function CreateCompany() {
 
   return (
     <StyledCreateCompanyWrapper>
+      <MyStep step={0} />
       <h1>Olá!</h1>
       <p>Antes de tudo, nos diga o nome da sua empresa!</p>
       <Box sx={{ display: "flex", flexDirection: "column", gap: ".5rem" }}>
