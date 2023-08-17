@@ -1,9 +1,5 @@
-export function App() {
-  console.log(import.meta.env.VITE_HOST);
+import { Paths } from "./routes";
 
-  return (
-    <div>
-      <h1>Hello World</h1>
-    </div>
-  );
+export function App() {
+  return <Paths />;
 }
