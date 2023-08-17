@@ -9,8 +9,8 @@ export function Welcome() {
     <StyledWelcomeWrapper>
       <h1>Seja bem-vindo!</h1>
       <p>
-        Antes de começarmos nossa jornada, é necessário fazer log-in com sua do
-        Google Meu Negócio com os seus pontos de venda.
+        Para começarmos nossa jornada com o pé direito, é necessário fazer
+        log-in com seu perfil da empresa do Google com os seus pontos de venda.
       </p>
       <GoogleButton
         onClick={() => {
