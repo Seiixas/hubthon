@@ -9,8 +9,16 @@ import {
   Avatar,
   List,
   Box,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  TablePagination,
 } from "@mui/material";
 import { StyledPlatformWrapper } from "./platform-link.styles";
+import { ChangeEvent, MouseEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const locationsMocked = [
   {
@@ -38,20 +46,48 @@ const locationsMocked = [
 ];
 
 export function PlatformLink() {
+  const [open, setOpen] = useState(false);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+
+  const navigate = useNavigate();
+
+  const handleChangePage = (
+    event: MouseEvent<HTMLButtonElement> | null,
+    newPage: number,
+  ) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   function handleButton(type: string) {
     if (type === "primary") {
-      return <Button variant="outlined">Conectar</Button>;
+      return <Button variant="contained">Conectar</Button>;
     }
     if (type === "error") {
       return (
-        <Button variant="outlined" color="error">
+        <Button  variant="contained" color="error">
           Verificar
         </Button>
       );
     }
     if (type === "success") {
       return (
-        <Button variant="outlined" color="success">
+        <Button variant="contained" color="success" style={{ cursor: 'default' }} disabled>
           Conectado
         </Button>
       );
@@ -91,9 +127,19 @@ export function PlatformLink() {
           </ListItem>
         </Box>
       </section>
-      <section>
-        <header>
+      <section style={{ display: 'flex', flexDirection: 'column', gap: '2rem'}}>
+        <header style={{ display: 'flex', flexDirection: 'column', gap: '.5rem'}}>
           <h3>Listagem de Locais</h3>
+          <h5>Foram encontrados 74 locais neste perfil</h5>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }} >
+            <Button
+              variant="contained"
+              onClick={handleClickOpen}
+            >
+              Adicionar todos os locais
+            </Button>
+            <p style={{ margin: '0', fontSize: '20px'}}>1 de 50 Locais Vinculados</p>
+          </div>
         </header>
         <article>
           <List
@@ -106,8 +152,10 @@ export function PlatformLink() {
             {locationsMocked.map((location) => (
               <ListItem
                 sx={{
-                  display: "flex",
+                  display: "grid",
+                  gridTemplateColumns: 'auto auto 120px',
                   gap: "1rem",
+                  padding: '0',
                 }}
                 key={location.id}
               >
@@ -127,6 +175,47 @@ export function PlatformLink() {
           </List>
         </article>
       </section>
+
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          Vincular Locais
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Tem certeza que deseja vincular todos os locais deste perfil
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Não</Button>
+          <Button onClick={handleClose} autoFocus>
+            Sim
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <TablePagination
+        component="div"
+        count={100}
+        page={page}
+        onPageChange={handleChangePage}
+        rowsPerPage={rowsPerPage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
+      <footer style={{ display: 'flex', justifyContent: 'flex-end' }} >
+        <Button
+          variant="contained"
+          sx={{ width: '250px'}}
+          onClick={() => {
+            navigate("/verify-locations");
+          }}
+        >
+          Ver Locais Vinculados
+        </Button>
+      </footer>
     </StyledPlatformWrapper>
   );
 }
