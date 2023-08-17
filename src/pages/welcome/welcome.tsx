@@ -2,6 +2,7 @@ import GoogleButton from "react-google-button";
 import { StyledWelcomeWrapper } from "./welcome.styles";
 import { Link, useNavigate } from "react-router-dom";
 import { MyStep } from "../../components/Stepper";
+import { Whatsapp } from "../../components/whatsapp";
 
 export function Welcome() {
   const navigate = useNavigate();
@@ -19,9 +20,10 @@ export function Welcome() {
           navigate("/platform-link");
         }}
       />
-      <Link to="*" style={{ fontSize: '1rem' }}>
+      <Link to="*" style={{ fontSize: "1rem" }}>
         Não possuo conta do Google
       </Link>
+      <Whatsapp />
     </StyledWelcomeWrapper>
   );
 }
