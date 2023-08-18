@@ -27,7 +27,10 @@ export function CreateCompany() {
       </Box>
       <Button
         variant="contained"
-        onClick={() => navigate("/link-google")}
+        onClick={() => {
+          localStorage.setItem('company-name', company);
+          navigate("/link-google")
+        }}
         disabled={isEmpty(company)}
       >
         Próximo

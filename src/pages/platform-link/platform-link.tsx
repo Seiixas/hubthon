@@ -69,6 +69,7 @@ export function PlatformLink() {
   const totalOfLocations = locationsData.length;
   const totalOfLinkedLocations = locationsData.filter(location => location.type === 'success').length;
   const limitOfLocations = 50;
+  const companyName = localStorage.getItem('company-name');
 
   const navigate = useNavigate();
 
@@ -149,6 +150,14 @@ export function PlatformLink() {
     }
   }
 
+  const handleConnectAllLocations = () => {
+    setLocationsData(prev => prev.map(location => ({
+      ...location,
+      type: 'success',
+    })));
+    handleClose();
+  }
+
   return (
     <div style={{ display: "flex" }}>
       <StyledPlatformWrapper>
@@ -180,7 +189,7 @@ export function PlatformLink() {
                   <LocationCityIcon />
                 </Avatar>
               </ListItemAvatar>
-              <span>HubLocal</span>
+              <span>{companyName || 'Empresa'}</span>
             </ListItem>
           </Box>
         </section>
@@ -191,7 +200,7 @@ export function PlatformLink() {
             style={{ display: "flex", flexDirection: "column", gap: ".5rem" }}
           >
             <h3>Listagem de Locais</h3>
-            <h5>Foram encontrados {totalOfLocations} locais neste perfil</h5>
+            <h6>Foram encontrados {totalOfLocations} locais neste perfil</h6>
             <div
               style={{
                 display: "flex",
@@ -200,11 +209,14 @@ export function PlatformLink() {
               }}
             >
               <Button variant="contained" onClick={handleClickOpen}>
-                Adicionar todos os locais
+                Conectar todos os locais
               </Button>
-              <p style={{ margin: "0", fontSize: "20px" }}>
-                {totalOfLinkedLocations} de {limitOfLocations} Locais Vinculados
+              <div style={{ display: 'grid' }}>
+              <p style={{ margin: "0", fontSize: "15px" }}>
+                {totalOfLinkedLocations} locais vinculados
               </p>
+              <p style={{ color: 'red', fontSize: '.8rem', fontStyle: 'italic'}}>Máximo de {limitOfLocations}</p>
+              </div>
             </div>
           </header>
           <article>
@@ -256,7 +268,7 @@ export function PlatformLink() {
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Não</Button>
-            <Button onClick={handleClose} autoFocus>
+            <Button onClick={handleConnectAllLocations} autoFocus>
               Sim
             </Button>
           </DialogActions>
