@@ -16,7 +16,7 @@ export const MyStep = ({ step }: TMyStep) => {
 
   return (
     <>
-      <Stepper nonLinear activeStep={step}>
+      <Stepper sx={{ pointerEvents: 'none' }} nonLinear activeStep={step}>
         {steps.map((label, index) => (
           <Step key={label} completed={completed[index]}>
             <StepButton color="inherit" onClick={() => {}}>

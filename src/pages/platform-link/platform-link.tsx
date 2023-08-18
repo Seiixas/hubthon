@@ -169,6 +169,9 @@ export function PlatformLink() {
               gridTemplateColumns: "auto auto",
               gap: "1rem",
               alignItems: "center",
+              backgroundColor: '#FCF4A3',
+              padding: '15px',
+              borderRadius: '10px'
             }}
           >
             <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -197,7 +200,7 @@ export function PlatformLink() {
           style={{ display: "flex", flexDirection: "column", gap: "2rem" }}
         >
           <header
-            style={{ display: "flex", flexDirection: "column", gap: ".5rem" }}
+            style={{ display: "flex", flexDirection: "column", gap: ".5rem"}}
           >
             <h3>Listagem de Locais</h3>
             <h6>Foram encontrados {totalOfLocations} locais neste perfil</h6>
@@ -225,6 +228,9 @@ export function PlatformLink() {
                 width: "100%",
                 maxWidth: 650,
                 bgcolor: "background.paper",
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '.5rem'
               }}
             >
               {locationsData.map((location) => (
@@ -233,7 +239,9 @@ export function PlatformLink() {
                     display: "grid",
                     gridTemplateColumns: "auto auto 120px",
                     gap: "1rem",
-                    padding: "0",
+                    padding: "0 16px",
+                    backgroundColor: '#e3e3e3',
+                    borderRadius: '10px',
                   }}
                   key={location.id}
                 >
@@ -275,13 +283,23 @@ export function PlatformLink() {
         </Dialog>
         <TablePagination
           component="div"
-          count={100}
-          page={page}
+          count={5}
+          page={0}
           onPageChange={handleChangePage}
           rowsPerPage={rowsPerPage}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
-        <footer style={{ display: "flex", justifyContent: "flex-end" }}>
+        <footer style={{ display: "flex", justifyContent: "space-between" }}>
+          <Button
+            variant="contained"
+            sx={{ width: "250px" }}
+            onClick={() => {
+              navigate("/link-google");
+            }}
+            color="inherit"
+          >
+            Voltar
+          </Button>
           <Button
             variant="contained"
             sx={{ width: "250px" }}
