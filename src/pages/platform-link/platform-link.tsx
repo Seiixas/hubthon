@@ -20,7 +20,7 @@ import { StyledPlatformWrapper } from "./platform-link.styles";
 import { ChangeEvent, MouseEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MyStep } from "../../components/Stepper";
-import { WhatsApp } from "@mui/icons-material";
+import { Whatsapp } from "../../components/whatsapp";
 
 const locationsMocked = [
   {
@@ -247,7 +247,7 @@ export function PlatformLink() {
           </Button>
         </footer>
       </StyledPlatformWrapper>
-      <WhatsApp />
+      <Whatsapp />
     </div>
   );
 }

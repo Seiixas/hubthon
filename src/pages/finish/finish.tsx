@@ -1,9 +1,11 @@
 import { Button } from "@mui/material";
 import Confetti from "react-confetti";
+import { useNavigate } from "react-router-dom";
 import { useWindowSize } from "react-use";
 
 export const Finish = () => {
   const { width, height } = useWindowSize();
+  const navigate = useNavigate();
 
   return (
     <>
@@ -17,6 +19,7 @@ export const Finish = () => {
         <Button
           variant="contained"
           sx={{ fontSize: "1.5rem", fontWeight: "bold", marginTop: "2rem" }}
+          onClick={() => navigate('/my-locations')}
         >
           Continuar
         </Button>

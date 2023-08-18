@@ -23,7 +23,6 @@ export function Welcome() {
       <Link to="*" style={{ fontSize: "1rem" }}>
         Não possuo conta do Google
       </Link>
-      <Whatsapp />
     </StyledWelcomeWrapper>
   );
 }

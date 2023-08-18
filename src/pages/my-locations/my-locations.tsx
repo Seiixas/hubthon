@@ -1,27 +1,39 @@
-import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
-import { Link } from "react-router-dom";
+import { LocationItem } from "../../components/LocationItem";
+import { SideMenu } from "../../components/SideMenu";
+
+const locationsMocked = [
+  {
+    id: 0,
+    name: 'Nome do local',
+    address: 'Rua do Fulano, 456 - Bairro - Cidade - ESTADO',
+    phone: '(85) 98888-0283',
+    website: 'meusite.com.br',
+    email: 'meuemail@gmail.com'
+  },
+  {
+    id: 1,
+    name: 'Nome do local',
+    address: 'Rua do Fulano, 456 - Bairro - Cidade - ESTADO',
+    phone: '(85) 98888-0283'
+  },
+
+]
+
 export function MyLocations() {
   return (
-    <Sidebar>
-      <Menu
-        menuItemStyles={{
-          button: {
-            // the active class will be added automatically by react router
-            // so we can use it to style the active menu item
-            [`&.active`]: {
-              backgroundColor: "#13395e",
-              color: "#b6c8d9",
-            },
-          },
-        }}
-      >
-        <MenuItem component={<Link to="/documentation" />}>
-          {" "}
-          Documentation
-        </MenuItem>
-        <MenuItem component={<Link to="/calendar" />}> Calendar</MenuItem>
-        <MenuItem component={<Link to="/e-commerce" />}> E-commerce</MenuItem>
-      </Menu>
-    </Sidebar>
+    <>
+      <SideMenu />
+      <div style={{ display: 'grid', gap: '1rem'}}>
+      {locationsMocked.map(location => (
+        <LocationItem
+          name={location.name}
+          address={location.address}
+          phone={location.phone}
+          website={location.website}
+          email={location.email}
+        />
+      ))}
+      </div>
+    </>
   );
 }

@@ -6,12 +6,17 @@ export const Whatsapp = () => {
       style={{
         position: "absolute",
         bottom: "2rem",
-        right: "2rem",
-        width: "5rem",
-        height: "5rem",
+        right: "17rem",
+        width: "3rem",
+        height: "4rem",
+        display: 'flex',
+        alignItems: 'center',
+        gap: '1rem',
+        cursor: 'pointer',
       }}
     >
-      <img src={whatsapp} />
+      <p style={{ whiteSpace: 'nowrap', fontSize: '1.2rem' }}>Não encontrei meu local!</p>
+      <img  src={whatsapp} />
     </div>
   );
 };
