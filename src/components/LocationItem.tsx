@@ -7,12 +7,13 @@ export const LocationItem = ({
   name,
   phone,
   website,
-  scheduling,
   email,
-}) => {
+  setLatLngSelected,
+  latLng,
+}: any) => {
   return (
     <Accordion>
-      <AccordionSummary>
+      <AccordionSummary onClick={() => setLatLngSelected(latLng)}>
         <p>{name}</p>
         <p>{address}</p>
       </AccordionSummary>
@@ -25,4 +26,4 @@ export const LocationItem = ({
       </AccordionDetails>
     </Accordion>
   );
-}
+};
