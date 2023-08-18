@@ -9,9 +9,21 @@ import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import EngineeringIcon from "@mui/icons-material/Engineering";
 import HelpIcon from "@mui/icons-material/Help";
 
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import { lighten } from "@mui/material";
 import { useEffect, useState } from "react";
+
+const MyMap = ({ location }: { location: any }) => {
+  const map = useMap();
+
+  useEffect(() => {
+    map.setView([location.latLng[0], location.latLng[1]]);
+  }, [location])
+
+  map.setView([50,50]);
+
+  return <></>
+}
 
 export const SideMenu = ({ activeLocation }: { activeLocation: number }) => {
   const [location, setLocation] = useState({
@@ -38,18 +50,19 @@ export const SideMenu = ({ activeLocation }: { activeLocation: number }) => {
   return (
     <StyledSideMenuWrapper>
       <header style={{ margin: "1rem", height: "11vh" }}>
-        <p>Você acabou de selecionar: </p>
-        <strong>{location!.name}</strong>
+        <p style={{ color: 'white'}}>Você acabou de selecionar: </p>
+        <strong style={{ color: 'white'}}>{location!.name}</strong>
       </header>
       <MapContainer
         center={[location!.latLng[0], location!.latLng[1]]}
-        zoom={20}
+        zoom={17}
         style={{ height: "60vh", width: "100%" }}
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
+        <MyMap location={location} />
         {locationsMocked.map(({ name, latLng }) => (
           <Marker position={[latLng[0], latLng[1]]}>
             <Popup>{name}</Popup>
@@ -58,7 +71,7 @@ export const SideMenu = ({ activeLocation }: { activeLocation: number }) => {
       </MapContainer>
       <footer style={{ margin: "1rem", height: "5vh" }}>
         <header>
-          <h3>Ações</h3>
+          <h3 style={{ color: 'white' }}>Ações</h3>
         </header>
         <div
           style={{
