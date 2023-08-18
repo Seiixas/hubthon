@@ -16,7 +16,7 @@ import {
   DialogActions,
   TablePagination,
 } from "@mui/material";
-import { StyledPlatformWrapper } from "./platform-link.styles";
+import { StyledLoading, StyledPlatformWrapper } from "./platform-link.styles";
 import { ChangeEvent, MouseEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MyStep } from "../../components/Stepper";
@@ -29,7 +29,7 @@ const locationsMocked = [
     address:
       " R. Pereira Valente, 578 - Sala 1305 a 1308 - Meireles, Fortaleza - CE, 60160-250",
     state_of_merchant: true,
-    type: "success",
+    type: "primary",
   },
   {
     id: "id-2",
@@ -40,10 +40,24 @@ const locationsMocked = [
   },
   {
     id: "id-3",
+    name: "Farmácias Pague Menos",
+    address:
+      "Av. Senador Virgilio Távora, 665 - Lojas 5 a 8 - Meireles, Fortaleza - CE, 60160-265",
+    type: "primary",
+  },
+  {
+    id: "id-4",
     name: "MidiaT",
     address:
       "Scopa Platinum - R. Monsenhor Bruno, 1153 - Sala 524 - Meireles, Fortaleza - CE, 60115-191",
     type: "error",
+  },
+  {
+    id: "id-5",
+    name: "Cobasi Aldeota: Pet Shop, Rações, Petiscos, Medicamentos em Fortaleza",
+    address:
+      " Av. Santos Dumont, 3860 - Loja 4 A 9 - Aldeota, Fortaleza - CE, 60150-162",
+    type: "primary",
   },
 ];
 
@@ -52,6 +66,9 @@ export function PlatformLink() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [locationsData, setLocationsData] = useState(locationsMocked);
+  const totalOfLocations = locationsData.length;
+  const totalOfLinkedLocations = locationsData.filter(location => location.type === 'success').length;
+  const limitOfLocations = 50;
 
   const navigate = useNavigate();
 
@@ -77,25 +94,35 @@ export function PlatformLink() {
     setOpen(false);
   };
 
-  const handleConnect = (index: string) => {
+  const handleClick = (index: string, verify = false) => {
     setLocationsData((prev) =>
       prev.map((location) =>
-        location.id === index ? { ...location, type: "success" } : location
+        location.id === index ? { ...location, type: verify ? "loading" : "success" } : location
       )
     );
+
+    if (verify) {
+      setTimeout(() => {
+        setLocationsData((prev) =>
+        prev.map((location) =>
+          location.id === index ? { ...location, type: "success" } : location
+        )
+    );
+      }, 1000);
+    }
   };
 
   function handleButton(type: string, index: string) {
     if (type === "primary") {
       return (
-        <Button variant="contained" onClick={() => handleConnect(index)}>
+        <Button variant="contained" onClick={() => handleClick(index)}>
           Conectar
         </Button>
       );
     }
     if (type === "error") {
       return (
-        <Button variant="contained" color="error" onClick={() => {}}>
+        <Button variant="contained" color="error" onClick={() => handleClick(index, true)}>
           Verificar
         </Button>
       );
@@ -107,11 +134,18 @@ export function PlatformLink() {
           color="success"
           style={{ cursor: "default" }}
           disabled
-          onClick={() => handleConnect(index)}
+          onClick={() => handleClick(index)}
         >
           Conectado
         </Button>
       );
+    }
+    if (type === 'loading') {
+      return (
+        <Button>
+          <StyledLoading />
+        </Button>
+      )
     }
   }
 
@@ -157,7 +191,7 @@ export function PlatformLink() {
             style={{ display: "flex", flexDirection: "column", gap: ".5rem" }}
           >
             <h3>Listagem de Locais</h3>
-            <h5>Foram encontrados 74 locais neste perfil</h5>
+            <h5>Foram encontrados {totalOfLocations} locais neste perfil</h5>
             <div
               style={{
                 display: "flex",
@@ -169,7 +203,7 @@ export function PlatformLink() {
                 Adicionar todos os locais
               </Button>
               <p style={{ margin: "0", fontSize: "20px" }}>
-                1 de 50 Locais Vinculados
+                {totalOfLinkedLocations} de {limitOfLocations} Locais Vinculados
               </p>
             </div>
           </header>

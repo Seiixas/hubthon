@@ -26,7 +26,7 @@ export function CreateCompany() {
         />
       </Box>
       <Button
-        variant="outlined"
+        variant="contained"
         onClick={() => navigate("/link-google")}
         disabled={isEmpty(company)}
       >

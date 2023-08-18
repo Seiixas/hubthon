@@ -5,18 +5,22 @@ export const Whatsapp = () => {
     <div
       style={{
         position: "absolute",
-        bottom: "2rem",
-        right: "17rem",
-        width: "3rem",
+        bottom: "1rem",
+        right: "1rem",
+        width: "18  rem",
         height: "4rem",
         display: 'flex',
         alignItems: 'center',
+        justifyContent: 'center',
         gap: '1rem',
         cursor: 'pointer',
+        padding: '.5rem 1rem',
+        borderRadius: '1rem',
+        background: '#00000011',
       }}
     >
-      <p style={{ whiteSpace: 'nowrap', fontSize: '1.2rem' }}>Não encontrei meu local!</p>
-      <img  src={whatsapp} />
+      <p style={{ fontSize: '1rem' }}>Não encontrei meu local!</p>
+      <img  src={whatsapp} style={{ width: '2rem', height: '2rem' }} />
     </div>
   );
 };

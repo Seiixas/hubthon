@@ -11,7 +11,7 @@ export const Finish = () => {
     <>
       <Confetti width={width} height={height} />
       <div style={{ maxWidth: "650px", textAlign: "center" }}>
-        <h1>Seja bem-vindo! 🥳</h1>
+        <h1>Parabéns! 🥳</h1>
         <p>
           Os seus locais foram criados com sucesso! Agora verifique os seus
           locais navegando na nossa plataforma.
